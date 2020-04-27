@@ -84,7 +84,7 @@ function respMultiBulk($depth, $leaf, $minlen, $maxlen, $intmax) {
     return $resp;
 }
 
-$opt = getopt('', ['type:', 'maxdepth:', 'count:', 'intmax:', 'maxlen:', 'bulkleaf:']);
+$opt = getopt('', ['type:', 'maxdepth:', 'count:', 'intmax:', 'maxlen:', 'bulkleaf:', 'delim:']);
 
 $count = $opt['count'] ?? 100;
 $maxdepth = $opt['maxdepth'] ?? 3;
@@ -92,6 +92,7 @@ $type = $opt['type'] ?? 'bulk';
 $intmax = $opt['intmax'] ?? pow(2, 31);
 $maxlen = $opt['maxlen'] ?? 255;
 $bulkleaf = $opt['bulkleaf'] ?? 'int';
+$delim = $opt['delim'] ?? '';
 
 $types = ['int', 'bulk', 'multibulk', 'status'];
 if ($type != 'rand' && !in_array($type, $types)) {
@@ -145,4 +146,5 @@ for ($i = 0; $i < $count; $i++) {
     }
 
     echo $resp;
+    if ($delim) echo $delim;
 }
